@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        <div class="display">
+
+        </div>
+        <p class="score"></p>
+        <p class="winner"></p>
+        <script>
+                let draws = 0;
+                let playerScore = 0;
+                let computerScore = 0;
+                const display = document.querySelector('.display');
+                const score = document.querySelector('.score');
+                const winner = document.querySelector('.winner');
+                const choiceRock = document.querySelector('#rock');
+                    choiceRock.addEventListener('click', () =>{
+                         oneRound('rock',computerPlay());
+                    });
+                const choicePaper = document.querySelector('#paper');
+                    choicePaper.addEventListener('click', () =>{
+                        oneRound('paper',computerPlay());
+                    });
+                const choiceScissors = document.querySelector('#scissors');
+                    choiceScissors.addEventListener('click', () => {
+                        oneRound('scissors',computerPlay());
+                    })
+
+            function computerPlay(){
+                let randomNumber = Math.floor(Math.random() * 3);
+                switch (randomNumber) {
+                    case 0:
+                        return "rock";
+                        break;
+                    case 1:
+                        return "paper";
+                        break;
+                    case 2:
+                        return "scissors";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+            //game(5);
+            function oneRound(playerSelection, computerSelection){
+                    winner.textContent = '';
+                    playerSelection = playerSelection.toLowerCase();
+                    let playerWon = 2;
+                    if (playerSelection === computerSelection) {
+                        draws++;
+                        display.textContent = "It's a draw";
+                        score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                        determine();
+                    }
+                    else {
+                        switch (playerSelection) {
+                            case "rock":
+                                if (computerSelection === "paper"){
+                                    computerScore++;
+                                    display.textContent = "You lose! Paper beats rock.";
+                                    score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                    determine();
+
+                                }
+                                else {
+                                    playerScore++;
+                                    display.textContent = "You win! Rock beats scissors.";
+                                    score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                    determine();
+
+                                }
+                                break;
+                            case "paper":
+                                if (computerSelection === "scissors"){
+                                    computerScore++;
+                                    display.textContent = "You lose! Scissors beats paper.";
+                                    score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                    determine();
+
+                                }
+                                else {
+                                    playerScore++;
+                                    display.textContent = "You win! Paper beats rock.";
+                                    score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                    determine();
+
+                                }
+                                break;
+                            case "scissors":
+                                if (computerSelection === "rock"){
+                                    computerScore++;
+                                    display.textContent = "You lose! Rock beats scissors.";
+                                    score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                    determine();
+
+                                }
+                                else {
+                                    playerScore++;
+                                    display.textContent = "You win! Scissors beats paper.";
+                                    score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                    determine();
+
+                                }
+                                break;
+                            default:
+                                display.textContent = "You entered an invalid choice.";
+                                score.textContent = "Player: " + playerScore + "  Computer: " + computerScore;
+                                determine();
+
+                                break;
+                        }
+                    }
+            }
+
+            function determine(){
+                if(playerScore >= 5){
+                    winner.textContent = 'You win the game!';
+                    computerScore = 0;
+                    playerScore = 0;
+                }
+                else if(computerScore >= 5){
+                    winner.textContent = 'Computer wins the game!';
+                    computerScore = 0;
+                    playerScore = 0;
+                }
+            }
+
+            function game(numberOfRounds){
+            
+                for (i = 0; i < numberOfRounds; i++){
+                    oneRound(playerInput(), computerPlay());
+                }
+                console.log("Player Score: " + playerScore + "   Computer Score: " + computerScore +
+                "   Draws: " + draws);
+                }
+        </script>
+    </body>
+</html>
